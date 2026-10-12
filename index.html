@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="fi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Visa Kauhanen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Värit ja fontit löytyvät tästä: muuta niitä vaihtamalla arvoja. */
+  :root {
+    --bg: #0e1218;
+    --surface: #151b23;
+    --line: #232c37;
+    --fg: #e7ebf0;
+    --muted: #8f9bab;
+    --accent: #7fb7c9;
+    --accent-ink: #0e1218;
+
+    --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --font-body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    padding-inline: 1.25rem;
+    padding-block: 3rem 2.5rem;
+  }
+
+  img { max-width: 100%; }
+
+  .page {
+    max-width: 52rem;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  a { color: var(--accent); text-underline-offset: 0.2em; }
+  a:focus-visible, .btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+    margin: 0;
+    line-height: 1.1;
+  }
+
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  /* Esittely */
+  .intro { display: flex; flex-direction: column; gap: 1.25rem; padding-top: 1rem; }
+  h1 { font-size: clamp(2.75rem, 9vw, 5rem); font-weight: 700; letter-spacing: -0.03em; }
+  .role { font-size: 1.25rem; color: var(--muted); margin: 0; max-width: 34rem; }
+  .intro-links { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.5rem; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border: 1px solid var(--accent);
+    transition: background-color 0.15s, color 0.15s;
+  }
+  .btn-primary { background: var(--accent); color: var(--accent-ink); }
+  .btn-primary:hover { background: var(--fg); border-color: var(--fg); }
+  .btn-ghost { color: var(--accent); background: transparent; }
+  .btn-ghost:hover { background: var(--surface); }
+
+  /* Osiot */
+  section { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 1.5rem 2.5rem; border-top: 1px solid var(--line); padding-top: 1.75rem; }
+  section > .label { padding-top: 0.35rem; }
+  .content { min-width: 0; display: flex; flex-direction: column; gap: 1.25rem; }
+  .content p { margin: 0; max-width: 38rem; }
+
+  /* Osaaminen */
+  .skill-group { display: flex; flex-direction: column; gap: 0.6rem; }
+  .skill-group h3 { font-size: 1rem; font-weight: 500; color: var(--muted); font-family: var(--font-body); }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; margin: 0; padding: 0; }
+  .tags li {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    border-radius: 6px;
+  }
+  .tags.main li { font-size: 0.95rem; padding: 0.45rem 0.9rem; border-color: #2f3b49; }
+
+  /* Projekti */
+  .project {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .project h3 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.01em; }
+  .project p { margin: 0; max-width: 36rem; }
+  .run {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    line-height: 1.7;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 0.9rem 1rem;
+    overflow-x: auto;
+    color: var(--fg);
+  }
+  .run .c { color: var(--muted); }
+  .run .p { color: var(--accent); }
+
+  /* Kuvat */
+  .shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: 0; }
+  .shots figure { margin: 0; display: flex; flex-direction: column; gap: 0.5rem; min-width: 0; }
+  .shot { display: block; width: 100%; padding: 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--bg); cursor: zoom-in; transition: border-color 0.15s; }
+  .shot:hover { border-color: var(--accent); }
+  .shot:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .shot img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; object-position: top; }
+  .shots figcaption { font-size: 0.875rem; color: var(--muted); }
+  .shots figcaption span { font-family: var(--font-mono); color: var(--accent); margin-right: 0.5rem; }
+  button.btn { font-family: inherit; cursor: pointer; }
+  dialog.lightbox { border: 1px solid var(--line); background: var(--surface); color: var(--fg); border-radius: 10px; padding: 1rem; max-width: min(92vw, 60rem); }
+  dialog.lightbox::backdrop { background: rgb(5 8 12 / 0.82); }
+  dialog.lightbox img { display: block; max-width: 100%; max-height: 78vh; margin: 0 auto 0.75rem; border-radius: 6px; }
+  dialog.lightbox .btn { display: flex; margin-inline: auto; }
+
+  /* Yhteystiedot */
+  .contact-line { font-size: 1.25rem; }
+  footer { border-top: 1px solid var(--line); padding-top: 1.25rem; color: var(--muted); font-size: 0.875rem; }
+
+  @media (max-width: 40rem) {
+    body { padding-block: 2rem 2rem; }
+    .page { gap: 3rem; }
+    section { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+    section > .label { padding-top: 0; }
+    .project { padding: 1.15rem; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .intro { animation: rise 0.6s ease-out both; }
+    @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+  <header class="intro">
+    <p class="label">Portfolio</p>
+    <h1>Visa Kauhanen</h1>
+    <p class="role">Tieto- ja viestintätekniikan opiskelija</p>
+    <div class="intro-links">
+      <a class="btn btn-primary" href="https://github.com/vikau85" target="_blank" rel="noopener">GitHub-profiili</a>
+      <a class="btn btn-ghost" href="#projektit">Katso projekti</a>
+    </div>
+  </header>
+
+  <section id="tietoa">
+    <h2 class="label">Tietoa minusta</h2>
+    <div class="content">
+      <p>Olen Visa Kauhanen, ohjelmoinnista kiinnostunut tieto- ja viestintätekniikan opiskelija.</p>
+      <p>Viimeisin projektini on ajanvarausjärjestelmä, jossa yhdistyvät React-käyttöliittymä ja Node.js-taustapalvelu.</p>
+    </div>
+  </section>
+
+  <section id="osaaminen">
+    <h2 class="label">Osaaminen</h2>
+    <div class="content">
+      <div class="skill-group">
+        <h3>Kielet ja kirjastot</h3>
+        <ul class="tags main">
+          <li>JavaScript</li>
+          <li>Python</li>
+          <li>HTML</li>
+          <li>CSS</li>
+          <li>React</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h3>Työkalut</h3>
+        <ul class="tags">
+          <li>Node.js</li>
+          <li>Vite</li>
+          <li>Tailwind CSS</li>
+          <li>Git</li>
+          <li>GitHub</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="projektit">
+    <h2 class="label">Projektit</h2>
+    <div class="content">
+      <article class="project">
+        <h3>Ajanvarausjärjestelmä</h3>
+        <p>Ajanvarausjärjestelmä verkossa. Käyttöliittymä on tehty Reactilla, Vitellä ja Tailwind CSS:llä, ja se toimii yhdessä Node.js-taustapalvelun kanssa. Kuvakkeet tulevat Lucide React -kirjastosta. Sähköpostiviestit lähetetään Nodemailer -kirjastolla.</p>
+        <ul class="tags">
+          <li>React</li>
+          <li>Vite</li>
+          <li>Tailwind CSS</li>
+          <li>Node.js</li>
+        </ul>
+        <div class="shots">
+          <figure>
+            <button type="button" class="shot" aria-label="Suurenna kuva: päivän valinta">
+              <img src="kuvat/1-paiva.png" alt="Ajanvarauksen ensimmäinen vaihe: kalenteri, josta valitaan päivä arkipäiville" width="1296" height="1342" loading="lazy">
+            </button>
+            <figcaption><span>1</span>Päivän valinta</figcaption>
+          </figure>
+          <figure>
+            <button type="button" class="shot" aria-label="Suurenna kuva: ajan valinta">
+              <img src="kuvat/2-aika.png" alt="Ajanvarauksen toinen vaihe: vapaat kellonajat valitulle päivälle" width="1302" height="882" loading="lazy">
+            </button>
+            <figcaption><span>2</span>Ajan valinta</figcaption>
+          </figure>
+          <figure>
+            <button type="button" class="shot" aria-label="Suurenna kuva: yhteystiedot">
+              <img src="kuvat/3-tiedot.png" alt="Ajanvarauksen kolmas vaihe: lomake, johon täytetään palvelu, nimi, sähköposti ja puhelinnumero" width="1268" height="1079" loading="lazy">
+            </button>
+            <figcaption><span>3</span>Yhteystiedot</figcaption>
+          </figure>
+          <figure>
+            <button type="button" class="shot" aria-label="Suurenna kuva: varauksen vahvistus">
+              <img src="kuvat/4-vahvistus.png" alt="Vahvistusnäkymä, jossa näkyvät varatun ajan tiedot" width="1295" height="987" loading="lazy">
+            </button>
+            <figcaption><span>4</span>Varauksen vahvistus</figcaption>
+          </figure>
+        </div>
+        <pre class="run"><span class="c"># käynnistä käyttöliittymä paikallisesti</span>
+<span class="p">$</span> npm install
+<span class="p">$</span> npm run dev
+<span class="c"># avaa http://localhost:5173</span></pre>
+        <div>
+          <a class="btn btn-ghost" href="https://github.com/vikau85/ajanvaraus-app" target="_blank" rel="noopener">Koodi GitHubissa</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="yhteystiedot">
+    <h2 class="label">Yhteystiedot</h2>
+    <div class="content">
+      <p class="contact-line">Koodini ja projektini löytyvät <a href="https://github.com/vikau85" target="_blank" rel="noopener">GitHubista</a>.</p>
+    </div>
+  </section>
+
+  <footer>Visa Kauhanen · 2026</footer>
+</main>
+
+<dialog id="lightbox" class="lightbox" aria-label="Suurennettu kuva">
+  <img id="lightbox-img" src="" alt="">
+  <button type="button" class="btn btn-ghost" id="lightbox-close">Sulje</button>
+</dialog>
+
+<script>
+  (function () {
+    var box = document.getElementById("lightbox");
+    var big = document.getElementById("lightbox-img");
+    if (!box || typeof box.showModal !== "function") return;
+    document.querySelectorAll(".shot").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var t = b.querySelector("img");
+        big.src = t.getAttribute("src");
+        big.alt = t.alt;
+        box.showModal();
+      });
+    });
+    document.getElementById("lightbox-close").addEventListener("click", function () { box.close(); });
+    box.addEventListener("click", function (e) { if (e.target === box) box.close(); });
+  })();
+</script>
+</body>
+</html>
